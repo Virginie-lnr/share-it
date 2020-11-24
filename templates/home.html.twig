@@ -1,0 +1,20 @@
+{# on hérite de base.html.twig: on récupère la même structure HTML et on remplace certains blocs#}
+{% extends "base.html.twig" %}
+
+{# on écrase le bloc 'title' #}
+
+{% block title %}
+  Share It !
+{% endblock %}
+
+{% block body %}
+  <h1>Share It!</h1>
+  <form method="POST" enctype="multipart/form-data/">
+    <label for="filename">Nom du fichier</label><br>
+    <input type="text"><br>
+    <input type="file" name="upload_file" class="mt-2"><br>
+    <input type="submit" class="mt-2">
+  </form>
+{% endblock %}
+
+
