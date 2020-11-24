@@ -33,9 +33,11 @@ $container->set(RouteParserInterface::class, function () use ($app) {
 
 // PSR-7 response factories
 $container->set(
-    ResponseFactoryInterface::class, function () {
-    return new ResponseFactory();
-});
+    ResponseFactoryInterface::class,
+    function () {
+        return new ResponseFactory();
+    }
+);
 
 $container->set(StreamFactoryInterface::class, function () {
     return new StreamFactory();
@@ -60,3 +62,7 @@ $container->set(Connection::class, function () {
     $connectionParams = include __DIR__ . '/doctrine.php';
     return DriverManager::getConnection($connectionParams['connection']);
 });
+
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();

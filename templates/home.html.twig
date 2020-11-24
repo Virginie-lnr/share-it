@@ -8,13 +8,15 @@
 {% endblock %}
 
 {% block body %}
+
   <h1>Share It!</h1>
-  <form method="POST" enctype="multipart/form-data/">
-    <label for="filename">Nom du fichier</label><br>
-    <input type="text"><br>
-    <input type="file" name="upload_file" class="mt-2"><br>
-    <input type="submit" class="mt-2">
+  <form method="post" action="{{ link('homepage')}}" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="file" name="uploaded_file" class="form-control-file mt-2">
+    </div>
+    <input type="submit" value="Envoyer" class="btn btn-primary mt-2">
   </form>
+
 {% endblock %}
 
 
