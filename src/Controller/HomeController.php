@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Doctrine\DBAL\Connection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,17 +27,17 @@ class HomeController extends AbstractController
         }
 
         // filename 
-        $filename = $_FILES['uploaded_file']['tmp_name'];
+        $filename = $_FILES['uploaded_file']['name'];
 
         // directory 
         $directory = __DIR__ . '/../../files/';
-        $uploadfile = $directory . basename($_FILES['uploaded_file']['name']);
-
+        $uploadFileDirectory = $directory . $filename;
 
         // vérifie s'il n'y a pas eu d'erreur et déplace le fichier
         if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-            echo ("Fichier téléchargé: " . $_FILES['uploaded_file']["name"]);
-            move_uploaded_file($filename, $uploadfile);
+            // move_uploaded_file($filename, $uploadFileDirectory);
+            $uploadedFile->moveTo($uploadFileDirectory);
+            echo ("Votre fichier " . $_FILES['uploaded_file']["name"] . "a bien été envoyé!");
         }
 
         return $this->template($response, 'home.html.twig');
