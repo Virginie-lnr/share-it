@@ -17,6 +17,7 @@ use Slim\Psr7\Factory\StreamFactory;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFunction;
+use Whoops\Run;
 
 // Composer autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -63,6 +64,6 @@ $container->set(Connection::class, function () {
     return DriverManager::getConnection($connectionParams['connection']);
 });
 
-$whoops = new \Whoops\Run;
+$whoops = new Run();
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();

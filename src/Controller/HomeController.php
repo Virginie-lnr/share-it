@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use DateTime;
 use Doctrine\DBAL\Connection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -23,22 +22,36 @@ class HomeController extends AbstractController
 
         // vérifie si fichier a bien été envoyé
         if (isset($uploadedFiles['uploaded_file'])) {
+            /** @var  */
             $uploadedFile = $uploadedFiles['uploaded_file'];
         }
 
-        // filename 
-        $filename = $_FILES['uploaded_file']['name'];
+        // filename with original name 
+        $filenameOriginal = $uploadedFile->getClientFileName();
 
-        // directory 
-        $directory = __DIR__ . '/../../files/';
-        $uploadFileDirectory = $directory . $filename;
+        // random string 
+        $randomString = bin2hex(random_bytes(5));
+        // date + random string + original filename 
+        $filename = date("YmdHis");
+        $filename .= $randomString;
+        // la méthode pathinfo() permet de sélection uniquement l'exention du fichier  
+        // grâce à PATHINFO_EXTENSION
+        $filename .= '.' . pathinfo($filenameOriginal, PATHINFO_EXTENSION);
+        echo '<hr>';
+
+        // chemin de destination du fichier 
+        // chemin vers le dossier /files/ + nouveau nom de fichier
+        $directory = __DIR__ . '/../../files/' . $filename;
 
         // vérifie s'il n'y a pas eu d'erreur et déplace le fichier
         if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
             // move_uploaded_file($filename, $uploadFileDirectory);
-            $uploadedFile->moveTo($uploadFileDirectory);
-            echo ("Votre fichier " . $_FILES['uploaded_file']["name"] . "a bien été envoyé!");
+            $uploadedFile->moveTo($directory);
+            echo ("Votre fichier " . $filename . " a bien été envoyé!");
         }
+
+        // SQL
+
 
         return $this->template($response, 'home.html.twig');
     }
