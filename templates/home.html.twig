@@ -10,12 +10,24 @@
 {% block body %}
 
   <h1>Share It!</h1>
-  <form method="post" action="{{ link('homepage')}}" enctype="multipart/form-data">
+  {# <form method="post" action="{{ link('homepage')}}" enctype="multipart/form-data">
     <div class="form-group">
         <input type="file" name="uploaded_file" class="form-control-file mt-2">
     </div>
     <input type="submit" value="Envoyer" class="btn btn-primary mt-2">
-  </form>
+  </form> #}
+
+<form method="post" action="{{ link('homepage')}}" enctype="multipart/form-data">
+  <div class="input-group mb-3">
+    <div class="custom-file">
+      <input type="file" name="uploaded_file" class="custom-file-input" id="inputGroupFile02">
+      <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choisissez un fichier</label>
+    </div>
+    <div class="input-group-append">
+      <input type="submit" value="Envoyer" class=" btn btn-success" id="inputGroupFileAddon02"></input>
+    </div>
+  </div>
+</form>
 
 {% endblock %}
 
