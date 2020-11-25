@@ -31,6 +31,9 @@ class UploadService
 
     // Déplacer le fichier
     $file->moveTo($directory);
+    echo 'le fichier :' . $file->getClientFilename() . ' a bien été envoyé! ';
+    // echo '<hr>';
+    // var_dump($file);
     return $filename;
   }
 
