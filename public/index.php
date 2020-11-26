@@ -23,6 +23,10 @@ $app
 // on peut indiquer leur format avec des regex 
 // \d+ : constitué d'un ou plusieurs chiffres 
 // les paramètres seront envoyés en arguments de la méthode du controller
+
+$app
+    ->get('/success/{id:\d+}', [HomeController::class, 'success'])
+    ->setName('success');
 $app
     ->get('/download/{id:\d+}', [HomeController::class, 'download'])
     ->setName('download');
