@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UploadedFileInterface;
 use Slim\Psr7\UploadedFile;
 
 class HomeController extends AbstractController
@@ -101,10 +102,31 @@ class HomeController extends AbstractController
         return $this->template($response, 'file_error.html.twig');
     }
 
-    public function download(ResponseInterface $response, int $id)
-    {
+    public function download(
+        ResponseInterface $response,
+        int $id,
+        Connection $connection,
+        FileManager $fileManager
+    ) {
 
-        $response->getBody()->write(sprintf('Identifiants: %d', $id));
+        $files = $fileManager->getById($id);
+
+        if ($files === null) {
+            return $this->redirect('file-error');
+        }
+
+        $originalFileName = $files->getNomOriginal();
+        $fileName = $files->getNom();
+
+        $pathFileName = __DIR__ . '/../../files/' . $fileName;
+        $pathFileNameOriginal = __DIR__ . '/../../files/' . $originalFileName;
+
+        if (file_exists($pathFileName)) {
+            header('Content-Disposition: attachment;filename="' . basename($pathFileNameOriginal) . '"');
+            readfile($pathFileName);
+            exit;
+        }
+
         return $response;
     }
 }

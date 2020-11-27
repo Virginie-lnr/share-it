@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+Fichier téléchargé
+{% endblock %}
+
+
+{% block body %}
+  <h1>Vous pouvez télécharger votre fichier</h1>
+  Le fichier <b>{{ files.nomOriginal }}</b> a été chargé, vous pouvez le télécharger ci-dessous:
+  <div class="mt-2">
+    <a href="{{ link('download', {id: files.id }) }}" class="btn btn-primary">Clique moi!</a>
+  </div>
+{% endblock %}

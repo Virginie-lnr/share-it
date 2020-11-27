@@ -49,6 +49,7 @@ class FileManager
     return $this->createObject($fichierData['id'], $fichierData['filename'], $fichierData['original_filename']);
   }
 
+
   /**
    * Enregistrer un nouveau fichier en base de données 
    */

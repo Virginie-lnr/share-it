@@ -31,7 +31,7 @@ class Files
 
   public function getNom(): ?string
   {
-    return $this->nom;
+    return $this->filename;
   }
 
   public function setNom(string $filename): self
