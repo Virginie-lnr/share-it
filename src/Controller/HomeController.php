@@ -78,17 +78,32 @@ class HomeController extends AbstractController
         return $this->template($response, 'home.html.twig');
     }
 
+    /**
+     * vérifier que l'identifiant (argument id) correspond à un fichier existant
+     * si ce n'est pas le cas, rediriger vers une route qui affichera un msg d'erreur
+     */
     public function success(ResponseInterface $response, int $id, Connection $connection, FileManager $fileManager)
     {
 
         $files = $fileManager->getById($id);
+
+        if ($files === null) {
+            return $this->redirect('file-error');
+        }
+
         return $this->template($response, 'success.html.twig', [
             'files' => $files
         ]);
     }
 
+    public function fileError(ResponseInterface $response)
+    {
+        return $this->template($response, 'file_error.html.twig');
+    }
+
     public function download(ResponseInterface $response, int $id)
     {
+
         $response->getBody()->write(sprintf('Identifiants: %d', $id));
         return $response;
     }

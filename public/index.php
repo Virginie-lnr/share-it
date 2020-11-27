@@ -27,15 +27,14 @@ $app
 $app
     ->get('/success/{id:\d+}', [HomeController::class, 'success'])
     ->setName('success');
+
 $app
     ->get('/download/{id:\d+}', [HomeController::class, 'download'])
     ->setName('download');
-// $app
-//     ->map(['GET', 'POST'], '/test', [HomeController::class, 'test'])
-//     ->setName('test');
 
-// $app
-//     ->get('/a-propos', [HomeController::class, 'about'])
-//     ->setName('about');
+$app
+    ->get('/file-error', [HomeController::class, 'fileError'])
+    ->setName('file-error');
+
 // Start the application
 $app->run();
