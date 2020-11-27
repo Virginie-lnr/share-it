@@ -125,8 +125,11 @@ class HomeController extends AbstractController
             header('Content-Disposition: attachment;filename="' . basename($pathFileNameOriginal) . '"');
             readfile($pathFileName);
             exit;
-        }
 
+            // $response
+            //     ->withHeader('Content-Disposition', 'attachment; filename="' . basename($pathFileNameOriginal) . '"');
+            // readfile($pathFileName);
+        }
         return $response;
     }
 }
